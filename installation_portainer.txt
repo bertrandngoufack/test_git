@@ -532,6 +532,26 @@ Git is an extremely powerful tool with plenty more commands and options.
 
 However, this post gives you a good start and reference point as you continue to explore and leverage Git for your version control needs.
 
+===
+L'erreur "refusing to merge unrelated histories" se produit lorsque Git tente de fusionner deux branches qui ont des historiques de commit totalement différents et n'ont pas de point commun.
+
+Cette erreur peut se produire lorsque vous essayez de fusionner deux branches qui ont été initialisées à partir de dépôts différents ou qui ont des historiques de commit distincts.
+
+Pour résoudre ce problème, vous pouvez ajouter l'option --allow-unrelated-histories à la commande git pull, ce qui permettra à Git de fusionner les branches même si elles ont des historiques de commit distincts. Voici comment vous pouvez le faire :
+
+bash
+Copy code
+git pull origin main --allow-unrelated-histories
+
+makefile in docker compose
+
+Docker compose makefile
+
+https://github.com/krom/docker-compose-makefile
+
+
+
+
 
 
 
