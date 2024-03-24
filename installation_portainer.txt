@@ -1,0 +1,542 @@
+Téléchargez l'image Docker de Portainer en utilisant la commande suivante :
+sudo docker pull portainer/portainer-ce
+====
+Step 3: Setup Portainer
+
+===
+
+Step 3: Setup Portainer
+Une fois l'image téléchargée, exécutez le conteneur Portainer en utilisant la commande suivante :
+
+sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /applis/portainer_data:/data portainer/portainer-ce
+
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /applis/portainer_data:/data portainer/portainer
+
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v data:/var/run/docker.sock -v data:/data portainer/portainer
+
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v data:/data portainer/portainer
+
+sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /applis/docker/portainer_data:/data portainer/portainer-ce
+
+
+docker run -d -p 8080:8080 -p 50000:50000 -v /applis/docker/portainer_data:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+
+docker run -d -p 8092:8080 -p 50000:50000 -v /applis/docker/jenkins:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+
+docker run -d -p 8092:8080 -p 50000:50000 -v /applis/docker/jenkins:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+
+mot de passe root : cae949a03958477a8a886c9eb89bbb86
+
+docker run -d -p 8092:8080 -v /applis/docker/jenkins:/var/jenkins_home jenkins/jenkins:lts
+
+
+
+
+docker run -d --name docker-apache -p 9090:80 -d httpd
+
+
+====
+
+Ouvrez votre navigateur Web et accédez à l'URL suivante : http://localhost:9000
+
+root@ubuntulab:~# history
+    1  exit
+    2  ll
+    3  cd /var/
+    4  ll
+    5  exit
+    6  df -TH
+    7  fdisk -l
+    8  lvmdiskscan
+    9  echo "- - -" > /sys/class/scsi_host/host2/scan
+   10  fdisk -l
+   11  echo "- - -" >> /sys/class/scsi_host/host_$i/scan
+   12  echo "- - -" | sudo tee /sys/class/scsi_host/host*/scan >/dev/null
+   13  for host in /sys/class/scsi_host/*; do echo "- - -" | sudo tee $host/scan; ls /dev/sd* ; done     
+   14  fdisk -l
+   15  echo "- - -" > /sys/class/scsi_host/hostX/scan
+   16  echo "- - -" > /sys/class/scsi_host/host*/scan
+   17  for BUS in /sys/class/scsi_host/host*/scan; do    echo "- - -" >  ${BUS}; don
+   18  for BUS in /sys/class/scsi_host/host*/scan; do    echo "- - -" >  ${BUS}; done
+   19  fdisk -l
+   20  clear
+   21  fdisk -l
+   22  fdisk /dev/sdb
+   23  pvcreate /dev/sdb1
+   24  vgcreate appli_vg_lvm /dev/sdb1
+   25  pvdisplay /dev/sdb1
+   26  vgdisplay appli_vg_lvm
+   27  lvcreate -n appli_lv_lvm -L 4GB appli_vg_lvm
+   28  lvdisplay
+   29  mkfs.xfs /dev/appli_vg_lvm/appli_lv_lvm
+   30  mkdir /applis
+   31  mount /dev/appli_vg_lvm/appli_lv_lvm /applis
+   32  df -TH | grep appl
+
+   /dev/vg_lvm_appli/lv_lvm_appli /applis xfs  defaults 0 0
+
+------
+
+version: "2"
+
+services:
+   wordpress-db:
+     container_name: wordpress-db
+     image: mysql:5.7
+     volumes:
+       - /applis/docker/wordpress/db:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: Bateau123
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress_user
+       MYSQL_PASSWORD: Bateau123
+
+   wordpress:
+     container_name: wordpress
+     depends_on:
+       - wordpress-db
+     image: wordpress:latest
+     ports:
+       - 8088:80
+     restart: always
+     volumes:
+       - /applis/docker/wordpress/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+       - /applis/docker/wordpress/html:/var/www/html
+     environment:
+       WORDPRESS_DB_HOST: wordpress-db:3306
+       WORDPRESS_DB_USER: wordpress_user
+       WORDPRESS_DB_PASSWORD: Bateau123
+       WORDPRESS_DB_NAME: wordpress
+
+   wordpress-pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: wordpress-pma
+    depends_on:
+        - wordpress-db
+    environment:
+        - PMA_HOST=wordpress-db
+        - PMA_PORT=3306
+        - PMA_ARBITRARY=1
+    #ports:
+    #    - 8001:80
+    restart: always
+
+    sudo docker volume create -d local-persist -o mountpoint=/mnt/ --name=extra-addons
+
+    sudo docker volume create -d local-persist -o mountpoint=/applis/docker --name=data
+
+    docker run -d \
+    -v /run/docker/plugins/:/run/docker/plugins/ \
+    -v /applis/docker/:/var/lib/docker/plugin-data/ \
+    -v /applis/docker/data/volume/:/applis/docker/data/volume/ \
+        cwspear/docker-local-persist-volume-plugin
+
+
+
+html --- index
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire d'inscription</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Inscription</h2>
+    <form method="post" action="inscription.php">
+      <div class="form-group">
+        <label for="inputEmail">Adresse email</label>
+        <input type="email" class="form-control" id="inputEmail" name="email" aria-describedby="emailHelp" placeholder="Entrez votre email" required>
+        <small id="emailHelp" class="form-text text-muted">Votre email ne sera partagé avec personne.</small>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Entrez votre mot de passe" required>
+      </div>
+      <button type="submit" class="btn btn-primary">S'inscrire</button>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+--- php inscription.php
+
+
+<?php
+// Récupération des données du formulaire
+$email = $_POST['email'];
+$password = $_POST['password'];
+
+// Connexion à la base de données
+$servername = "db";
+$username = "example_user";
+$dbpassword = "example_password";
+$dbname = "mon_application_db";
+
+$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+// Vérification de la connexion
+if ($conn->connect_error) {
+  die("La connexion a échoué : " . $conn->connect_error);
+}
+
+// Requête SQL pour insérer les données
+$sql = "INSERT INTO utilisateurs (email, mot_de_passe) VALUES ('$email', '$password')";
+
+if ($conn->query($sql) === TRUE) {
+  echo "Nouvel enregistrement créé avec succès";
+} else {
+  echo "Erreur : " . $sql . "<br>" . $conn->error;
+}
+
+// Fermeture de la connexion à la base de données
+$conn->close();
+?>
+
+--- Requete requete.sql
+
+-- Fragment de code SQL de création de base de données et de table
+CREATE DATABASE IF NOT EXISTS mon_application_db;
+
+USE mon_application_db;
+
+CREATE TABLE IF NOT EXISTS utilisateurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    mot_de_passe VARCHAR(255) NOT NULL
+);
+
+
+CREATE DATABASE IF NOT EXISTS app_db;
+
+USE app_db;
+
+CREATE TABLE IF NOT EXISTS utilisateurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    mot_de_passe VARCHAR(255) NOT NULL
+);
+====
+
+docker_compose YAML
+
+version: '3'
+services:
+  web:
+    image: php:apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./site:/var/www/html
+  
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mon_application_db
+      MYSQL_USER: example_user
+      MYSQL_PASSWORD: example_password
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_ARBITRARY: 1
+      MYSQL_ROOT_PASSWORD: example
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+
+
+version: '3'  # Version de la syntaxe Docker Compose
+
+services:
+  service1:
+    image: image1:tag  # Image Docker à utiliser pour le service
+    ports:
+      - "8080:80"  # Mappage du port 80 du conteneur vers le port 8080 de l'hôte
+    networks:
+      - mynetwork  # Nom du réseau auquel le service est connecté
+    volumes:
+      - data_volume:/app/data  # Montage d'un volume pour stocker des données
+
+  service2:
+    image: image2:tag
+    depends_on:
+      - service1  # Dépendance à service1, service1 démarre avant service2
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge  # Type de réseau (bridge est le plus courant)
+
+volumes:
+  data_volume:
+    driver: local  # Type de driver de volume (local est le plus courant)
+
+
+
+version: '3'  # Version de la syntaxe Docker Compose
+
+services:
+  service1:
+    image: image1:tag  # Image Docker à utiliser pour le service
+    ports:
+      - "8080:80"  # Mappage du port 80 du conteneur vers le port 8080 de l'hôte
+    networks:
+      - mynetwork  # Nom du réseau auquel le service est connecté
+    volumes:
+      - data_volume:/app/data  # Montage d'un volume pour stocker des données
+
+  service2:
+    image: image2:tag
+    depends_on:
+      - service1  # Dépendance à service1, service1 démarre avant service2
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge  # Type de réseau (Facultatif)
+
+volumes:
+  data_volume:
+    driver: local  # Type de driver de volume (Facultatif)
+
+    =====
+
+
+
+
+
+====
+
+
+
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "6033:3306"
+    volumes:
+      - ./site1/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8080:80
+
+  web:
+    image: php:apache
+    container_name: web
+    ports:
+      - "8081:80"
+    volumes:
+      - ./site1:/var/www/html
+
+volumes:
+  dbdata:
+
+
+
+docker system prune -a
+
+
+docker volume ls
+
+docker volume rm volume_name volume_name
+
+
+docker-compose -f docker-compose_dev.yml down
+
+docker-compose -f docker-compose_prod.yml down
+
+docker-compose -f docker-compose-test.yml down
+
+https://ostechnix.com/add-delete-and-grant-sudo-privileges-to-users-in-alpine-linux/
+
+https://geekscircuit.com/install-docker-docker-compose-on-alpine-linux/
+
+https://ostechnix.com/add-delete-and-grant-sudo-privileges-to-users-in-alpine-linux/
+
+1 apk add sudo
+   2 vi /etc/apk/repositories
+   3 apk add sudo
+   4 add ngoufack_b wheel
+   5 adduser ngoufack_b wheel
+   6 exit
+   7 apk update
+   8 cd /etc/sudoers.d/
+   9 ll
+  10 vi wheel --- -- # echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+  11 clear
+  12 ll
+  13 ls
+  14 cat wheel
+  15 id
+  16 clear
+  17 vi /etc/apk/repositories
+  18 apk update
+  19 vi /etc/apk/repositories
+  20 apk update
+  21 vi /etc/apk/repositories
+  22 apk add docker docker-compose
+  23 rc-update add docker default
+  24 /etc/init.d/docker start
+  25 docker-compose -v
+  26 adduser docker
+  27 docker id
+  28 adduser dockeruser
+  29 usermod -aG docker dockeruser
+  30 adduser dockeruser docker
+  31 id dockeruser
+  32 mkdir /applis
+  33 cd rm /applis/
+  34 cd rm -f /applis/
+  35 cd rm -rf /applis/
+  36 rm -rf /applis/
+  37 su - dockeruser
+  38 mkdir /applis
+  39 chmod -R 777 /applis/
+  40 su - dockeruser
+
+
+  https://mega.nz/folder/5O4CmLqT#qtG6FFkF945rdODCVJTcdg
+
+  docker volume create <volume name> --opt type=none --opt device=<path to volume> --opt o=bind
+
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: Bateau123
+      MYSQL_DATABASE: app_db_dev
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "6033:3306"
+    volumes:
+      - ./site_dev/init_dev.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbdata_dev:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8080:80
+
+  web:
+    image: php:7.4-apache
+    container_name: web
+    ports:
+      - "80:80"
+    volumes:
+      - ./site_dev:/var/www/html
+    depends_on:
+      - db
+    command: ["/bin/sh", "-c", "docker-php-ext-install mysqli && apache2-foreground"]
+
+volumes:
+  dbdata_dev: 
+
+========
+
+
+Jump into Git with these starter commands:
+
+🌟 𝚐𝚒𝚝 𝚒𝚗𝚒𝚝: Kick things off with this command that creates a new Git repository right where you are.
+
+🔄 𝚐𝚒𝚝 𝚌𝚕𝚘𝚗𝚎 <𝚛𝚎𝚙𝚘>: Want to get cracking on an existing project? This command copies it over to your local machine.
+
+𝗠𝗮𝗸𝗶𝗻𝗴 𝗖𝗵𝗮𝗻𝗴𝗲𝘀
+
+🔍 𝚐𝚒𝚝 𝚜𝚝𝚊𝚝𝚞𝚜: Take a quick peek at what's changed with this command. It's good practice to check in before and after you make changes.
+
+➕ 𝚐𝚒𝚝 𝚊𝚍𝚍 <𝚏𝚒𝚕𝚎𝚗𝚊𝚖𝚎>: Made some tweaks? Stage them for a commit with this command that adds your files to the lineup.
+
+📦 𝚐𝚒𝚝 𝚊𝚍𝚍 . or 𝚐𝚒𝚝 𝚊𝚍𝚍 -𝙰: Why add files one at a time when you can add all your changes in one fell swoop?
+
+💾 𝚐𝚒𝚝 𝚌𝚘𝚖𝚖𝚒𝚝 -𝚖 "𝙲𝚘𝚖𝚖𝚒𝚝 𝚖𝚎𝚜𝚜𝚊𝚐𝚎": Seal the deal on your changes with a commit and a handy message to remind you what you did.
+
+𝗕𝗿𝗮𝗻𝗰𝗵𝗶𝗻𝗴 𝗢𝘂𝘁
+
+📋 𝚐𝚒𝚝 𝚋𝚛𝚊𝚗𝚌𝚑: Curious about your branches? List them all out with this simple command.
+
+🌱 𝚐𝚒𝚝 𝚋𝚛𝚊𝚗𝚌𝚑 <𝚋𝚛𝚊𝚗𝚌𝚑𝚗𝚊𝚖𝚎>: Grow your project with a new branch using this command.
+
+🔄 𝚐𝚒𝚝 𝚌𝚑𝚎𝚌𝚔𝚘𝚞𝚝 <𝚋𝚛𝚊𝚗𝚌𝚑𝚗𝚊𝚖𝚎>: Jump over to another branch to keep working seamlessly.
+
+🔗 𝚐𝚒𝚝 𝚖𝚎𝚛𝚐𝚎 <𝚋𝚛𝚊𝚗𝚌𝚑𝚗𝚊𝚖𝚎>: Done with changes on your side branch? Bring them back to the main branch with a merge.
+
+𝗪𝗼𝗿𝗸𝗶𝗻𝗴 𝘄𝗶𝘁𝗵 𝗥𝗲𝗺𝗼𝘁𝗲𝘀
+
+📤 𝚐𝚒𝚝 𝚙𝚞𝚜𝚑 𝚘𝚛𝚒𝚐𝚒𝚗 <𝚋𝚛𝚊𝚗𝚌𝚑𝚗𝚊𝚖𝚎>: Send your latest commits up to the cloud with this push command.
+
+📥 𝚐𝚒𝚝 𝚙𝚞𝚕𝚕: Stay up-to-date with the rest of the team's work by pulling in their changes.
+
+🔗 𝚐𝚒𝚝 𝚛𝚎𝚖𝚘𝚝𝚎 -𝚟: Check your connections with this command that lists remote repositories linked to your local repo.
+
+𝗨𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱𝗶𝗻𝗴 𝘁𝗵𝗲 𝗗𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝗰𝗲𝘀
+
+🔽 𝚐𝚒𝚝 𝚏𝚎𝚝𝚌𝚑 vs 𝚐𝚒𝚝 𝚙𝚞𝚕𝚕: Both bring data from remote repositories, but 𝚐𝚒𝚝 𝚏𝚎𝚝𝚌𝚑 is like previewing, while 𝚐𝚒𝚝 𝚙𝚞𝚕𝚕 is like downloading and updating your files in one go.
+
+🔀 𝚐𝚒𝚝 𝚖𝚎𝚛𝚐𝚎 vs 𝚐𝚒𝚝 𝚛𝚎𝚋𝚊𝚜𝚎: Both integrate changes from one branch to another, but 𝚐𝚒𝚝 𝚖𝚎𝚛𝚐𝚎 makes a new commit for it, while 𝚐𝚒𝚝 𝚛𝚎𝚋𝚊𝚜𝚎 keeps your history neat and tidy.
+
+↩️ 𝚐𝚒𝚝 𝚛𝚎𝚜𝚎𝚝 vs 𝚐𝚒𝚝 𝚛𝚎𝚟𝚎𝚛𝚝: Need to backtrack? Use 𝚐𝚒𝚝 𝚛𝚎𝚜𝚎𝚝 to discard changes or 𝚐𝚒𝚝 𝚛𝚎𝚟𝚎𝚛𝚝 to undo while keeping your commit history intact.
+
+Git is an extremely powerful tool with plenty more commands and options.
+
+However, this post gives you a good start and reference point as you continue to explore and leverage Git for your version control needs.
+
+
+
+
+
+
+
+
+
